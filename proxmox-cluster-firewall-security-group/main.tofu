@@ -9,13 +9,14 @@ resource "proxmox_virtual_environment_cluster_firewall_security_group" "firewall
       type    = lookup(rule.value, "type", null)
       comment = lookup(rule.value, "comment", null)
       dest    = lookup(rule.value, "dest", null)
-      enable  = lookup(rule.value, "enable", false)
+      enabled = lookup(rule.value, "enabled", null)
       iface   = lookup(rule.value, "iface", null)
       log     = lookup(rule.value, "log", null)
       macro   = lookup(rule.value, "macro", null)
       proto   = lookup(rule.value, "proto", null)
       source  = lookup(rule.value, "source", null)
       sport   = lookup(rule.value, "sport", null)
+      dport   = lookup(rule.value, "dport", null)
     }
   }
 }
