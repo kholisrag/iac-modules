@@ -1,0 +1,60 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      modules: ${{ steps.list.outputs.modules }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: List modules from release-please-config.json
+        id: list
+        run: |
+          echo "modules=$(jq -c '.packages | keys' release-please-config.json)" >> "$GITHUB_OUTPUT"
+
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: 1.10.7
+          tofu_wrapper: false
+
+      - run: tofu fmt -check -recursive -diff .
+
+  validate:
+    needs: discover
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        module: ${{ fromJson(needs.discover.outputs.modules) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: 1.10.7
+          tofu_wrapper: false
+
+      - name: tofu init + validate
+        working-directory: ${{ matrix.module }}
+        run: |
+          tofu init -backend=false -input=false
+          tofu validate

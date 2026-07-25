@@ -1,0 +1,38 @@
+## Terraform / OpenTofu
+.terraform/
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# tfvars are likely to hold sensitive data and are environment-specific
+*.tfvars
+*.tfvars.json
+
+# Local override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+override.tofu
+override.tofu.json
+*_override.tofu
+*_override.tofu.json
+
+# CLI configuration
+.terraformrc
+terraform.rc
+
+## Terragrunt
+.terragrunt-cache/
+
+## Miscellaneous
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+temp/

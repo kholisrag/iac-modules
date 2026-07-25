@@ -1,0 +1,137 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release: ${{ toJson(steps.release-please.outputs) }}
+      releases_created: ${{ steps.release-please.outputs.releases_created }}
+      paths_released: ${{ steps.release-please.outputs.paths_released }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release-please
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  upload-artifact:
+    if: ${{ needs.release-please.outputs.releases_created == 'true' }}
+    needs:
+      - release-please
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        released_path: ${{ fromJson(needs.release-please.outputs.paths_released || '[]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+
+      - name: Extract info from release
+        id: info
+        run: |
+          tag_name='${{ fromJson(needs.release-please.outputs.release)[format('{0}--tag_name', matrix.released_path)] }}'
+          echo "tag_name=$tag_name" >> "$GITHUB_OUTPUT"
+          echo "artifact_path=${tag_name}.zip" >> "$GITHUB_OUTPUT"
+
+      - name: Package artifact
+        working-directory: ${{ matrix.released_path }}
+        run: |
+          zip -r "../${{ steps.info.outputs.artifact_path }}" .
+
+      - name: Upload artifact
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ steps.info.outputs.tag_name }}" "${{ steps.info.outputs.artifact_path }}" --clobber
+
+  create-module-tag:
+    if: ${{ needs.release-please.outputs.releases_created == 'true' }}
+    needs:
+      - release-please
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        released_path: ${{ fromJson(needs.release-please.outputs.paths_released || '[]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+
+      - name: Checkout repo as orphan workspace
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          path: orphan
+
+      - name: Extract info from release
+        id: info
+        run: |
+          tag_name='${{ fromJson(needs.release-please.outputs.release)[format('{0}--tag_name', matrix.released_path)] }}'
+          echo "tag_name=$tag_name" >> "$GITHUB_OUTPUT"
+
+          component_name=$(jq -r '.packages."${{ matrix.released_path }}".component' release-please-config.json)
+          echo "component_name=$component_name" >> "$GITHUB_OUTPUT"
+
+          echo "major=${{ fromJson(needs.release-please.outputs.release)[format('{0}--major', matrix.released_path)] }}" >> "$GITHUB_OUTPUT"
+          echo "minor=${{ fromJson(needs.release-please.outputs.release)[format('{0}--minor', matrix.released_path)] }}" >> "$GITHUB_OUTPUT"
+          echo "patch=${{ fromJson(needs.release-please.outputs.release)[format('{0}--patch', matrix.released_path)] }}" >> "$GITHUB_OUTPUT"
+
+      # Publishes the module subtree at the ROOT of an orphan commit, so consumers can use
+      #   source = "git::https://github.com/kholisrag/iac-modules.git?ref=<module>/vX.Y.Z"
+      # without a //<subdir> selector.
+      - name: Create orphan commit and floating version tags
+        working-directory: orphan
+        env:
+          COMPONENT: ${{ steps.info.outputs.component_name }}
+          MAJOR: ${{ steps.info.outputs.major }}
+          MINOR: ${{ steps.info.outputs.minor }}
+          PATCH: ${{ steps.info.outputs.patch }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout --orphan "orphan/${COMPONENT}/${{ github.sha }}"
+          git rm -rf . >/dev/null
+          shopt -s dotglob
+          cp -r "../${{ matrix.released_path }}"/* .
+          shopt -u dotglob
+
+          git add -A
+          git commit \
+            -m "chore: release module ${{ steps.info.outputs.tag_name }}" \
+            -m "Original-Commit-Sha: ${{ github.sha }}"
+
+          git tag -f "${COMPONENT}/v${MAJOR}"
+          git tag -f "${COMPONENT}/v${MAJOR}.${MINOR}"
+          git tag -f "${COMPONENT}/v${MAJOR}.${MINOR}.${PATCH}"
+          git push -f origin "${COMPONENT}/v${MAJOR}"
+          git push -f origin "${COMPONENT}/v${MAJOR}.${MINOR}"
+          git push -f origin "${COMPONENT}/v${MAJOR}.${MINOR}.${PATCH}"
