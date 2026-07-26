@@ -64,6 +64,15 @@
       "draft": false,
       "prerelease": false
     },
+    "cloudflare-email-routing": {
+      "component": "cloudflare-email-routing",
+      "changelog-path": "CHANGELOG.md",
+      "release-type": "terraform-module",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": false,
+      "draft": false,
+      "prerelease": false
+    },
     "cloudflare-r2-buckets": {
       "component": "cloudflare-r2-buckets",
       "changelog-path": "CHANGELOG.md",
