@@ -55,62 +55,8 @@
       "draft": false,
       "prerelease": false
     },
-    "cloudflare-dns-records": {
-      "component": "cloudflare-dns-records",
-      "changelog-path": "CHANGELOG.md",
-      "release-type": "terraform-module",
-      "bump-minor-pre-major": true,
-      "bump-patch-for-minor-pre-major": false,
-      "draft": false,
-      "prerelease": false
-    },
-    "cloudflare-email-routing": {
-      "component": "cloudflare-email-routing",
-      "changelog-path": "CHANGELOG.md",
-      "release-type": "terraform-module",
-      "bump-minor-pre-major": true,
-      "bump-patch-for-minor-pre-major": false,
-      "draft": false,
-      "prerelease": false
-    },
     "cloudflare-r2-buckets": {
       "component": "cloudflare-r2-buckets",
-      "changelog-path": "CHANGELOG.md",
-      "release-type": "terraform-module",
-      "bump-minor-pre-major": true,
-      "bump-patch-for-minor-pre-major": false,
-      "draft": false,
-      "prerelease": false
-    },
-    "cloudflare-tunnel": {
-      "component": "cloudflare-tunnel",
-      "changelog-path": "CHANGELOG.md",
-      "release-type": "terraform-module",
-      "bump-minor-pre-major": true,
-      "bump-patch-for-minor-pre-major": false,
-      "draft": false,
-      "prerelease": false
-    },
-    "cloudflare-turnstile": {
-      "component": "cloudflare-turnstile",
-      "changelog-path": "CHANGELOG.md",
-      "release-type": "terraform-module",
-      "bump-minor-pre-major": true,
-      "bump-patch-for-minor-pre-major": false,
-      "draft": false,
-      "prerelease": false
-    },
-    "cloudflare-zero-trust-access": {
-      "component": "cloudflare-zero-trust-access",
-      "changelog-path": "CHANGELOG.md",
-      "release-type": "terraform-module",
-      "bump-minor-pre-major": true,
-      "bump-patch-for-minor-pre-major": false,
-      "draft": false,
-      "prerelease": false
-    },
-    "cloudflare-zone": {
-      "component": "cloudflare-zone",
       "changelog-path": "CHANGELOG.md",
       "release-type": "terraform-module",
       "bump-minor-pre-major": true,
