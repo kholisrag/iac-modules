@@ -39,5 +39,6 @@
   "proxmox-vms": "0.1.0",
   "cloudflare-r2-buckets": "0.1.0",
   "cloudflare-zone": "0.1.0",
-  "cloudflare-dns-records": "0.1.0"
+  "cloudflare-dns-records": "0.1.0",
+  "cloudflare-tunnel": "0.1.0"
 }
