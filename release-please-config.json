@@ -82,6 +82,15 @@
       "draft": false,
       "prerelease": false
     },
+    "cloudflare-turnstile": {
+      "component": "cloudflare-turnstile",
+      "changelog-path": "CHANGELOG.md",
+      "release-type": "terraform-module",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": false,
+      "draft": false,
+      "prerelease": false
+    },
     "cloudflare-zero-trust-access": {
       "component": "cloudflare-zero-trust-access",
       "changelog-path": "CHANGELOG.md",
