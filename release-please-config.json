@@ -414,6 +414,24 @@
       "bump-patch-for-minor-pre-major": false,
       "draft": false,
       "prerelease": false
+    },
+    "digitalocean-database": {
+      "component": "digitalocean-database",
+      "changelog-path": "CHANGELOG.md",
+      "release-type": "terraform-module",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": false,
+      "draft": false,
+      "prerelease": false
+    },
+    "digitalocean-vpc": {
+      "component": "digitalocean-vpc",
+      "changelog-path": "CHANGELOG.md",
+      "release-type": "terraform-module",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": false,
+      "draft": false,
+      "prerelease": false
     }
   }
 }
