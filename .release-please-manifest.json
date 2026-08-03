@@ -44,5 +44,5 @@
   "cloudflare-zero-trust-access": "0.1.0",
   "cloudflare-turnstile": "0.1.0",
   "cloudflare-email-routing": "0.1.0",
-  "cloudflare-zero-trust-service-tokens": "0.0.0"
+  "cloudflare-zero-trust-service-tokens": "0.1.0"
 }
