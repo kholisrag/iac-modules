@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/kholisrag/iac-modules/compare/cloudflare-tunnel-v0.1.1...cloudflare-tunnel-v0.1.2) (2026-08-04)
+
+
+### Bug Fixes
+
+* **cloudflare-tunnel,cloudflare-zero-trust-access:** whole-resource outputs skip deprecated attributes ([#15](https://github.com/kholisrag/iac-modules/issues/15)) ([49c8277](https://github.com/kholisrag/iac-modules/commit/49c827717232ac982770088e35fa2ec952d34789))
+
 ## [0.1.1](https://github.com/kholisrag/iac-modules/compare/cloudflare-tunnel-v0.1.0...cloudflare-tunnel-v0.1.1) (2026-08-04)
 
 
