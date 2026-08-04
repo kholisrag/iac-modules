@@ -40,7 +40,7 @@
   "cloudflare-r2-buckets": "0.1.0",
   "cloudflare-zone": "0.1.0",
   "cloudflare-dns-records": "0.1.0",
-  "cloudflare-tunnel": "0.1.0",
+  "cloudflare-tunnel": "0.1.1",
   "cloudflare-zero-trust-access": "0.1.0",
   "cloudflare-turnstile": "0.1.0",
   "cloudflare-email-routing": "0.1.0",
