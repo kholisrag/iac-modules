@@ -1,6 +1,12 @@
 output "cloudflare_zero_trust_tunnel_cloudflared_output" {
-  description = "Cloudflare Zero Trust Tunnel Outputs"
+  description = <<-EOT
+    Cloudflare Zero Trust Tunnel Outputs. Sensitive in whole — the resource
+    carries `tunnel_secret`, which the provider marks sensitive, so a root
+    module consuming this output cannot re-export it unmarked. Read
+    `tunnel_cname` instead when all you need is the CNAME target.
+  EOT
   value       = cloudflare_zero_trust_tunnel_cloudflared.tunnel
+  sensitive   = true
 }
 
 output "cloudflare_zero_trust_tunnel_cloudflared_config_output" {
