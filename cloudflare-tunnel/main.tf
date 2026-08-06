@@ -25,6 +25,14 @@ resource "cloudflare_zero_trust_tunnel_cloudflared" "tunnel" {
   # Locally-managed tunnels only. A remotely-managed tunnel authenticates with
   # the connector token instead — see the `tunnel_token` output.
   tunnel_secret = lookup(each.value, "tunnel_secret", null)
+
+  # A literal, not a variable: Terraform rejects a variable in `prevent_destroy`
+  # at parse, and the argument cannot read `each.value`, so this can be neither
+  # configurable nor per-tunnel. Why the guard is here, and how to remove a
+  # tunnel you do own, are in README.md § "Things that bite".
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "cloudflare_zero_trust_tunnel_cloudflared_config" "config" {
