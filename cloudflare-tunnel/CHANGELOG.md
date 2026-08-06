@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0](https://github.com/kholisrag/iac-modules/compare/cloudflare-tunnel-v0.1.2...cloudflare-tunnel-v0.2.0) (2026-08-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **cloudflare-tunnel:** `destroy` now fails on any stack consuming this module. A tunnel is removed by taking it out of state first — see `## Things that bite` in the module README for both address shapes and for why `-exclude` is not the answer.
+
+### Features
+
+* **cloudflare-tunnel:** guard the tunnel resource with prevent_destroy ([#17](https://github.com/kholisrag/iac-modules/issues/17)) ([1008e2b](https://github.com/kholisrag/iac-modules/commit/1008e2b4cfc7a5d4e16e56dfcadbfbe15573d9ae))
+
 ## [0.1.2](https://github.com/kholisrag/iac-modules/compare/cloudflare-tunnel-v0.1.1...cloudflare-tunnel-v0.1.2) (2026-08-04)
 
 
