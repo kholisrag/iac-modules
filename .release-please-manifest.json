@@ -46,5 +46,8 @@
   "cloudflare-email-routing": "0.1.0",
   "cloudflare-zero-trust-service-tokens": "0.1.0",
   "digitalocean-database": "0.1.0",
-  "digitalocean-vpc": "0.1.0"
+  "digitalocean-vpc": "0.1.0",
+  "cloudflare-zero-trust-tunnel-routes": "0.0.0",
+  "cloudflare-zero-trust-device-managed-networks": "0.0.0",
+  "cloudflare-zero-trust-device-profiles": "0.0.0"
 }
