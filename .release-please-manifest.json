@@ -41,7 +41,7 @@
   "cloudflare-zone": "0.1.0",
   "cloudflare-dns-records": "0.1.0",
   "cloudflare-tunnel": "0.2.0",
-  "cloudflare-zero-trust-access": "0.1.1",
+  "cloudflare-zero-trust-access": "0.2.0",
   "cloudflare-turnstile": "0.1.0",
   "cloudflare-email-routing": "0.1.0",
   "cloudflare-zero-trust-service-tokens": "0.1.0",
@@ -50,5 +50,5 @@
   "cloudflare-zero-trust-tunnel-routes": "0.1.0",
   "cloudflare-zero-trust-device-managed-networks": "0.1.0",
   "cloudflare-zero-trust-device-profiles": "0.1.0",
-  "cloudflare-zero-trust-access-policies": "0.0.0"
+  "cloudflare-zero-trust-access-policies": "0.1.0"
 }
