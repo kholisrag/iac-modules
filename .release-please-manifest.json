@@ -49,5 +49,6 @@
   "digitalocean-vpc": "0.1.0",
   "cloudflare-zero-trust-tunnel-routes": "0.1.0",
   "cloudflare-zero-trust-device-managed-networks": "0.1.0",
-  "cloudflare-zero-trust-device-profiles": "0.1.0"
+  "cloudflare-zero-trust-device-profiles": "0.1.0",
+  "cloudflare-zero-trust-access-policies": "0.0.0"
 }

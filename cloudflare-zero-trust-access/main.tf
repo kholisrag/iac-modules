@@ -27,6 +27,10 @@ resource "cloudflare_zero_trust_access_application" "application" {
 
   policies = lookup(each.value, "policies", null)
 
+  # Unset leaves the organisation-wide setting in charge. Set either way, it
+  # overrides the organisation for this application only.
+  allow_authenticate_via_warp = lookup(each.value, "allow_authenticate_via_warp", null)
+
   allowed_idps              = lookup(each.value, "allowed_idps", null)
   auto_redirect_to_identity = lookup(each.value, "auto_redirect_to_identity", null)
   session_duration          = lookup(each.value, "session_duration", null)
